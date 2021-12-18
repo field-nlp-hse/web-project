@@ -25,10 +25,14 @@
 	<!-- <link rel="stylesheet" type="text/css" href="...someUrl..."> -->
 {% endblock %}
 {% block body %}
+<!-- 
+	добавляйте к div-ам, в которые оборачиваете конкретные элементы, класс mb-3.
+	так они будут ровно вставать внутри основной колонки.
+-->
 <!-- Пример заголовка страницы (надо будет подумать, куда его передвинуть) -->
-<h1>Home Page</h1>
+<h1 class="mb-3 text-center">Home Page</h1>
 <!-- Пример блока card (в него можно вписывать текст) -->
-<div class="card">
+<div class="card mb-3">
 	<div class="card-header">Наверху отчёркнутый текст</div>
  	<div class="card-body">
  		<div class="card-title">Заголовок</div>
