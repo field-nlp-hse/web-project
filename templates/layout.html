@@ -1,12 +1,44 @@
-<html>
+<!DOCTYPE html>
+<html lang="ru">
   <head>
-    {% if title %}
-    <title>{{title}}</title>
-    {% else %}
-    <title>Field NLP HSE</title>
-    {% endif %}
+    <!-- метаинформация -->
+    <meta charset="utf-8"/>
+    <meta name="author" content="Школа лингвистики НИУ ВШЭ"/>
+    <meta property="og:site_name" content="Field NLP HSE">
+    {% block header %}{% endblock %}
+    <!-- подгрузка локальных стилей / js библиотек -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
   </head>
   <body>
-    {% block content %}{% endblock %}
+    <!-- Панель навигации. margin отвечает за отступ основной части -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom: 2rem;">
+      <div class="container-fluid">
+        <!-- Кнопка перехода на глав страницу -->
+        <a class="navbar-brand" href="{{ url_for('home') }}">FIELD NLP HSE</a>
+        <!-- Кнопка разворачивания / сворачивания панели навигации (не видна по умолчанию) -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Остальные кнопки -->
+        <div class="collapse navbar-collapse" id="navbar">
+          <div class="navbar-nav">
+            <!-- ссылки на страницы проектов, допишем по ходу дела -->
+            <a class="nav-link" href="#">База словарей</a>
+            <a class="nav-link" href="#">Распознавание речи</a>
+            <a class="nav-link" href="#">Морфологический парсинг</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!-- горизонтальная регуляция -->
+    <div class="row d-flex justify-content-center">
+    <!-- вертикальная регуляция -->
+      <div class="col-11 p-1 bd-highlight d-grid gap-2" id="mainCol" style="margin: auto;">
+        <!-- сюда вставляется основная часть -->
+        {% block body %}{% endblock %}
+      </div>
+    </div>
   </body>
 </html>
