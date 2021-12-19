@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block header %}
+	<!-- 
+		В тэг title вписываем название для каждой страницы
+		оно будет отображаться на вкладке браузера
+	-->
+	{% if title %}
+	    <title>{{title}}</title>
+	{% else %}
+	    <title>FieldNLP HSE</title>
+	{% endif %}
+	<!-- 
+		В тэги meta в свойство content нужно вписать текст, который будет отображаться
+		в ссылках на страницу в соцсетях и будет краулиться поисковыми движками
+	-->
+	<meta property="og:title" content="Домашняя страница"/>
+	<meta property="og:description" content="Описание проекта" />
+	<!-- 
+		Если нужно добавить javascript или css,
+		специфичный именно для вашей страницы,
+		раскомментируйте одну из строк ниже 
+		и добавьте ссылку на локальный файл / файл из cdn
+	-->
+	<!-- <script type="text/javascript" src="...someUrl..."></script> -->
+	<!-- <link rel="stylesheet" type="text/css" href="...someUrl..."> -->
+{% endblock %}
+{% block body %}
+<!-- 
+	добавляйте к div-ам, в которые оборачиваете конкретные элементы, класс mb-3.
+	так они будут ровно вставать внутри основной колонки.
+-->
+<!-- Пример заголовка страницы (надо будет подумать, куда его передвинуть) -->
+<h1 class="mb-3 text-center">Что я распознавал этим летом</h1>
+<!-- Пример блока card (в него можно вписывать текст) -->
+<div class="card mb-3">
+	<div class="card-header">Раздел 1 про ASR</div>
+ 	<div class="card-body">
+ 		<div class="card-title">Заголовок</div>
+    	<div class="card-text">Внутри текст</div>
+ 	</div>
+</div>
+{% endblock %}
