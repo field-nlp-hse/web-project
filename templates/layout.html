@@ -25,20 +25,28 @@
         <div class="collapse navbar-collapse" id="navbar">
           <div class="navbar-nav">
             <!-- ссылки на страницы проектов, допишем по ходу дела -->
-            <a class="nav-link" href="/dictionaries">База словарей</a>
-            <a class="nav-link" href="/asr">Распознавание речи</a>
-            <a class="nav-link" href="/parsers">Морфологический парсинг</a>
+            <a class="nav-link" href="{{ url_for('dictionaries') }}">База словарей</a>
+            <a class="nav-link" href="{{ url_for('asr') }}">Распознавание речи</a>
+            <a class="nav-link" href="{{ url_for('parsers') }}">Морфологический парсинг</a>
           </div>
         </div>
       </div>
     </nav>
     <!-- горизонтальная регуляция -->
-    <div class="row d-flex justify-content-center">
+    <div class="row d-flex justify-content-center" style="padding-bottom: 8rem;">
     <!-- вертикальная регуляция -->
       <div class="col-11 p-1 bd-highlight d-flex flex-column" id="mainCol" style="margin: auto;">
         <!-- сюда вставляется основная часть -->
         {% block body %}{% endblock %}
       </div>
     </div>
+    <footer>
+      <div class="jumbotron jumbotron-fluid mb-0" style="height: 8rem; position: fixed; bottom: 0; left:0; right:0;">
+        <div class="container">
+          <p class="align-top">© Школа Лингвистики НИУ ВШЭ, 2021</p>
+          <p class="align-top">Материалы сайта доступны по лицензии Apache 2.0</p>
+        </div>
+      </div>    
+    </footer>
   </body>
 </html>
