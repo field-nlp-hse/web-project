@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block header %}
+	<!--
+		В тэг title вписываем название для каждой страницы
+		оно будет отображаться на вкладке браузера
+	-->
+	{% if title %}
+	    <title>{{title}}</title>
+	{% else %}
+	    <title>Field NLP HSE</title>
+	{% endif %}
+	<!--
+		В тэги meta в свойство content нужно вписать текст, который будет отображаться
+		в ссылках на страницу в соцсетях и будет краулиться поисковыми движками
+	-->
+	<meta property="og:title" content="Field NLP: инициатива по развитию полевой лингвистики"/>
+	<meta property="og:description" content="Инструменты для обработки полевых данных" />
+	<!--
+		Если нужно добавить javascript или css,
+		специфичный именно для вашей страницы,
+		раскомментируйте одну из строк ниже
+		и добавьте ссылку на локальный файл / файл из cdn
+	-->
+	<!-- <script type="text/javascript" src="...someUrl..."></script> -->
+	<!-- <link rel="stylesheet" type="text/css" href="...someUrl..."> -->
+{% endblock %}
+{% block body %}
+<!-- Пример блока card (в него можно вписывать текст) -->
+<div class="card mb-3">
+	<div class="card-header">Ошибка</div>
+	<div class="card-body">
+		На сервере сайта произошла ошибка.
+		<div class="card-text">
+			Пожалуйста, сообщите об ошибке администрации сайта.
+		</div>
+        См. сообщение: {{ error }}
+	</div>
+</div>
+{% endblock %}
