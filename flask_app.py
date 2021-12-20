@@ -20,12 +20,16 @@ from flask import (
 )
 from werkzeug.utils import secure_filename
 from dicttoxml import dicttoxml
-from utils import parse_hfst, TRANSDUCER_MAPPING, is_allowed_extension
+from utils import (
+    parse_hfst, 
+    TRANSDUCER_MAPPING, 
+    is_allowed_extension,
+    logger
+)
 
 app = Flask(__name__)
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
-
 
 @app.route("/")
 def home():
@@ -51,16 +55,15 @@ def parsers():
             "parsers.html",
             **params
         )
-    file_ = request.files.get('file')
-    request_text = request.form.get("text")
-    # assert that text is submitted either as plaintext or as a file 
-    if not (bool(file_) != bool(request_text)):
-        abort(400)
-    if file_:
+    request_text = request.form.get("text", "")
+    logger.debug("before file lookup")
+    if request.files:
+        logger.debug("files found")
+        file_ = request.files['file']
         if not is_allowed_extension(file_.filename):
             abort(400)
-        with open(file_, "r", encoding="utf-8") as textfile:
-            request_text = textfile.read()
+        request_text = file_.read().decode("utf-8")
+        logger.debug(f"Obtained text: {str(request_text)}")
     output_type = request.form.get("output_type", "plaintext")
     
     target_transducer = request.form.get("transducer")

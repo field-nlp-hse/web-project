@@ -32,7 +32,7 @@
 <!-- Пример заголовка страницы (надо будет подумать, куда его передвинуть) -->
 <h1 class="mb-6 text-center text-wrap" style="font-size: 1.5rem;">Морфологический&nbsp;анализ малоресурсных&nbsp;языков</h1>
 <div>
-	<form method="post" id="parserForm">
+	<form method="POST" action="/parsers" id="parserForm" enctype="multipart/form-data">
 		<!-- невидимый инпут для выбора формы ответа -->
 		<input name="output_type" value="plaintext" hidden aria-hidden="true" id="output"/>
 		<div class="form-group mb-3">
@@ -51,11 +51,11 @@
 		</div>
 
 		<div class="form-row d-flex flex-column flex-md-row justify-content-between mb-3">
-			<div class="col">
+			<div class="col mb-3">
 				<div>
-					<textarea class="form-control mb-3" id="Input" name="text" rows="4">{{ request_text }}</textarea>
+					<textarea class="form-control mb-3" id="Input" name="text" rows="4" placeholder="Введите текст">{{ request_text }}</textarea>
 					<label for="Input" style="font-size: 0.7rem;">Текст можно ввести в поле выше или загрузить в виде файла:</label>
-					<input type="file" class="form-control-file" enctype="multipart/form-data" id="FileUploadForm" placeholder="Введите текст"/>
+					<input type="file" class="form-control-file" id="FileUploadForm"/>
 					<small id="FileUploadHelp" class="form-text text-muted">Допустимые расширения — .txt,</small>
 				</div>				
 			</div>
