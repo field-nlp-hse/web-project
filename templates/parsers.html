@@ -13,15 +13,15 @@
 		В тэги meta в свойство content нужно вписать текст, который будет отображаться
 		в ссылках на страницу в соцсетях и будет краулиться поисковыми движками
 	-->
-	<meta property="og:title" content="Домашняя страница"/>
-	<meta property="og:description" content="Описание проекта" />
+	<meta property="og:title" content="Морфологический парсинг"/>
+	<meta property="og:description" content="Морфологический анализ для малоресурсных языков" />
 	<!--
 		Если нужно добавить javascript или css,
 		специфичный именно для вашей страницы,
 		раскомментируйте одну из строк ниже
 		и добавьте ссылку на локальный файл / файл из cdn
 	-->
-	<!-- <script type="text/javascript" src="...someUrl..."></script> -->
+	<script type="text/javascript" src="{{ url_for('static', filename='js/parsers.js') }}"></script>
 	<!-- <link rel="stylesheet" type="text/css" href="...someUrl..."> -->
 {% endblock %}
 {% block body %}
@@ -30,74 +30,77 @@
 	так они будут ровно вставать внутри основной колонки.
 -->
 <!-- Пример заголовка страницы (надо будет подумать, куда его передвинуть) -->
-<h1 class="mb-3 text-center">Морфологический анализатор для абазинского и багвалинского языков</h1>
-<!-- Пример блока card (в него можно вписывать текст) -->
-<div class="card mb-3">
-	<div class="card-header">Раздел 1 про парсеры</div>
- 	<div class="card-body">
- 		<div class="card-title">Заголовок</div>
-    	<div class="card-text">Внутри текст</div>
- 	</div>
-</div>
-
+<h1 class="mb-6 text-center text-wrap" style="font-size: 1.5rem;">Морфологический&nbsp;анализ малоресурсных&nbsp;языков</h1>
 <div>
-	<form>
+	<form method="post">
+		<!-- невидимый инпут для выбора формы ответа -->
+		<input name="output_type" value="plaintext" hidden aria-hidden="true" id="output"/>
 		<div class="form-group mb-3">
-			<select class="custom-select">
-				<option selected>Выберите язык</option>
-				<option value="bgv">Багвалинский</option>
-				<option value="abz">Абазинский</option>
+			<select class="custom-select" name="transducer">
+				<option 
+					{% if curlang == "none" %} selected="true" {% endif %} 
+					disabled="disabled"
+				>Выберите язык</option>
+				{% for key, val in mapping.items() %}
+					<option 
+						value="{{ key }}"
+						{% if curlang==key %} selected="true" {% endif %}
+					>{{ val.html_name }}</option>
+				{% endfor %}
 			</select>
 		</div>
 
-		<div class="form-row mb-3">
-
-			<div class="col mb-3">
-				<label for="Input">Текст можно ввести в поле ниже или загрузить в виде файла:</label>
-				<textarea class="form-control" id="Input" rows="4"></textarea>
+		<div class="form-row d-flex flex-column flex-md-row justify-content-between mb-3">
+			<div class="col">
+				<div>
+					<textarea class="form-control mb-3" id="Input" name="text" rows="4">{{ request_text }}</textarea>
+					<label for="Input" style="font-size: 0.7rem;">Текст можно ввести в поле выше или загрузить в виде файла:</label>
+					<input type="file" class="form-control-file" enctype="multipart/form-data" id="FileUploadForm"/>
+					<small id="FileUploadHelp" class="form-text text-muted">Допустимые расширения — .txt,</small>
+				</div>				
 			</div>
-
-			<div class="col mb-3">
-			<p></p>
-			<!--
-				<label for="Output">Результат:</label>
-				<textarea class="form-control" id="Input" rows="4" readonly></textarea>
-			-->
+			<div class="col d-flex flex-row">
+				<div class="card flex-grow-1 w-50 h-100">
+					<div class="p-3 card-text h-100">
+						{% for item in response_text %}
+							<span
+								class="badge badge-secondary text-wrap"
+								data-toggle="tooltip"
+								data-html="true"
+								title="{% for analysis in item.analyses %}
+								<span>{{ loop.counter + 1 }}</span><ul>
+									<li>lemma: {{ analysis.lemma }}</li>
+									<li>gloss: {{ analysis.gloss }}</li>
+								</ul>
+								<hr/>
+								{% endfor %}"
+							>item.token</span>
+						{% endfor %}
+					</div>
+				</div>
+				<div class="w-25 col-3 d-flex flex-column h-100 justify-content-between" style="padding-right: 0;">
+					<button id="plaintext" style="font-size: 0.65rem !important;" type="submit" class="btn btn-primary">Отобразить</button>
+					<button id="json" style="font-size: 0.65rem !important;" type="submit" class="btn btn-primary">&#8681;&nbsp;JSON</button>
+					<button id="xml" style="font-size: 0.65rem !important;" type="submit" class="btn btn-primary">&#8681;&nbsp;XML</button>
+				</div>
 			</div>
-
-		</div>
-
-		<div class="form-row mb-3">
-
-			<div class="col mb-3">
-				<input type="file" class="form-control-file" id="FileUploadForm">
-				<small id="FileUploadHelp" class="form-text text-muted">Допустимые расширения — .txt,</small>
-			</div>
-
-			<div class="col mb-3">
-				<label for="UploadFormat">Скачать результат как:</label>
-				<select class="form-control form-control-sm" id="UploadFormat">
-						<option>.txt</option>
-						<option>.json</option>
-						<option>.xml</option>
-				</select>
-			</div>
-
-		</div>
-
-		<div class="form-row mb-3">
-
-			<div class="col mb-3">
-				<button type="submit" class="btn btn-primary">Получить анализ</button>
-			</div>
-
-			<div class="col mb-3">
-				<button type="submit" class="btn btn-primary">Скачать</button>
-			</div>
-
-		</div>
-		
+		</div>		
 	</form>
 </div>
 
+<!-- Пример блока card (в него можно вписывать текст) -->
+<div class="card mb-3">
+	<div class="card-header">Как это работает?</div>
+ 	<div class="card-body">
+ 		<div class="card-title">А никак, на..й</div>
+    	<div class="card-text">))0)</div>
+ 	</div>
+</div>
+<div class="card mb-3">
+	<div class="card-header">Оставить отзыв</div>
+ 	<div class="card-body">
+ 		<div class="card-title">Проезжая станцию, с меня слетела шляпа</div>
+    	<div class="card-text"></div>
+ 	</div>
+</div>
 {% endblock %}
