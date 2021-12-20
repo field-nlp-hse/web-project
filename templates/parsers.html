@@ -21,7 +21,7 @@
 		раскомментируйте одну из строк ниже
 		и добавьте ссылку на локальный файл / файл из cdn
 	-->
-	<script type="text/javascript" src="{{ url_for('static', filename='js/parsers.js') }}"></script>
+	<script type="text/javascript" defer src="{{ url_for('static', filename='js/parsers.js') }}"></script>
 	<!-- <link rel="stylesheet" type="text/css" href="...someUrl..."> -->
 {% endblock %}
 {% block body %}
@@ -32,11 +32,11 @@
 <!-- Пример заголовка страницы (надо будет подумать, куда его передвинуть) -->
 <h1 class="mb-6 text-center text-wrap" style="font-size: 1.5rem;">Морфологический&nbsp;анализ малоресурсных&nbsp;языков</h1>
 <div>
-	<form method="post">
+	<form method="post" id="parserForm">
 		<!-- невидимый инпут для выбора формы ответа -->
 		<input name="output_type" value="plaintext" hidden aria-hidden="true" id="output"/>
 		<div class="form-group mb-3">
-			<select class="custom-select" name="transducer">
+			<select class="custom-select" name="transducer" id="transducer" required aria-required="true">
 				<option 
 					{% if curlang == "none" %} selected="true" {% endif %} 
 					disabled="disabled"
@@ -55,7 +55,7 @@
 				<div>
 					<textarea class="form-control mb-3" id="Input" name="text" rows="4">{{ request_text }}</textarea>
 					<label for="Input" style="font-size: 0.7rem;">Текст можно ввести в поле выше или загрузить в виде файла:</label>
-					<input type="file" class="form-control-file" enctype="multipart/form-data" id="FileUploadForm"/>
+					<input type="file" class="form-control-file" enctype="multipart/form-data" id="FileUploadForm" placeholder="Введите текст"/>
 					<small id="FileUploadHelp" class="form-text text-muted">Допустимые расширения — .txt,</small>
 				</div>				
 			</div>
@@ -63,18 +63,19 @@
 				<div class="card flex-grow-1 w-50 h-100">
 					<div class="p-3 card-text h-100">
 						{% for item in response_text %}
-							<span
+							<span 
+								tabindex="0"
 								class="badge badge-secondary text-wrap"
 								data-toggle="tooltip"
 								data-html="true"
 								title="{% for analysis in item.analyses %}
-								<span>{{ loop.counter + 1 }}</span><ul>
-									<li>lemma: {{ analysis.lemma }}</li>
+								<ul>
+									<li>{{ loop.index }} lemma: {{ analysis.lemma }}</li>
 									<li>gloss: {{ analysis.gloss }}</li>
 								</ul>
 								<hr/>
 								{% endfor %}"
-							>item.token</span>
+							>{{ item.token }} </span>
 						{% endfor %}
 					</div>
 				</div>
