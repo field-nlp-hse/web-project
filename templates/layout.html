@@ -5,12 +5,12 @@
     <meta charset="utf-8"/>
     <meta name="author" content="Школа лингвистики НИУ ВШЭ"/>
     <meta property="og:site_name" content="FieldNLP HSE">
-    {% block header %}{% endblock %}
     <!-- подгрузка локальных стилей / js библиотек -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='popper.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    {% block header %}{% endblock %}
   </head>
   <body>
     <!-- Панель навигации. margin отвечает за отступ основной части -->
@@ -36,7 +36,7 @@
     <!-- горизонтальная регуляция -->
     <div class="row d-flex justify-content-center" style="padding-bottom: 8rem;">
     <!-- вертикальная регуляция -->
-      <div class="col-11 p-1 bd-highlight d-flex flex-column" id="mainCol" style="margin: auto;">
+      <div class="col-11 bd-highlight d-flex flex-column" id="mainCol" style="margin: auto;">
         <!-- сюда вставляется основная часть -->
         {% block body %}{% endblock %}
       </div>

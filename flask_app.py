@@ -40,24 +40,33 @@ def asr():
     return render_template("asr.html", title="FieldNLP ASR")
 
 
-TRANSDUCER_MAPPING = {
-    "0":"...",
-    "1":"merged.hfstol",
-    "2":"merged.tr.hfstol"
-}
-
-
 @app.route("/parsers", methods=["GET", "POST"])
 def parsers():
-    default_params = {
-        "request_text": "Введите текст",
-        "response_text": ""
+    TRANSDUCER_MAPPING = {
+        "abz": {
+            "html_name": "Абазинский",
+            "filename": "abaza.ana.hfstol",
+        },
+        "bgv-cyr": {
+            "html_name": "Багвалинский (аварский алфавит)",
+            "filename": "merged.hfstol",
+        },
+        "bgv-lat": {
+            "html_name": "Багвалинский (транскрипция)",
+            "filename": "merged.tr.hfstol"
+        }
+    }
+    params = {
+        "title": "FieldNLP Parsers",
+        "request_text": "",
+        "response_text": "",
+        "mapping":TRANSDUCER_MAPPING,
+        "curlang": "none"
     }
     if request.method == "GET":
         return render_template(
             "parsers.html",
-            title="FieldNLP Parsers",
-            **default_params
+            **params
         )
     file_ = request.files.get('file')
     request_text = request.form.get("text")
@@ -74,16 +83,16 @@ def parsers():
     target_transducer = request.form.get("transducer")
     if not request_text or not target_transducer:
         return "Invalid query: parameters missing", 400
-    # quote against shell insertions
+    # quote to prevent shell insertions
     request_text = quote(request_text)
     # pick a transducer name from list
-    target_transducer = TRANSDUCER_MAPPING[target_transducer]
+    target_transducer_file = TRANSDUCER_MAPPING[target_transducer]["filename"]
     echo_process = subprocess.Popen(
         ["echo", request_text],
         stdout=subprocess.PIPE
     )
     ana_process = subprocess.run(
-        ["hfst-proc", target_transducer, request_text]
+        ["hfst-proc", target_transducer_file, request_text],
         stdin=echo_process.stdout,
         capture_output=True
     )
@@ -101,12 +110,13 @@ def parsers():
         xml_text = response_text # to_xml(response_text)
         return Response(xml_text, mimetype="application/xml")
     # if no files have been requested, return a template
-    params = {}
-    params["input_text"] = request_text
-    params["response_text"] = response_text # to_html(response_text)
+    params.update({
+        "input_text": request_text,
+        "response_text": response_text,# to_html(response_text)
+        "curlang": target_transducer
+    })
     return render_template(
         "parsers.html",
-        title="FieldNLP Parsers",
         **params            
     )
 
