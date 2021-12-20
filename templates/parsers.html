@@ -30,7 +30,7 @@
 	так они будут ровно вставать внутри основной колонки.
 -->
 <!-- Пример заголовка страницы (надо будет подумать, куда его передвинуть) -->
-<h1 class="mb-3 text-center">Что я парсил этим летом</h1>
+<h1 class="mb-3 text-center">Морфологический анализатор для абазинского и багвалинского языков</h1>
 <!-- Пример блока card (в него можно вписывать текст) -->
 <div class="card mb-3">
 	<div class="card-header">Раздел 1 про парсеры</div>
@@ -39,4 +39,65 @@
     	<div class="card-text">Внутри текст</div>
  	</div>
 </div>
+
+<div>
+	<form>
+		<div class="form-group mb-3">
+			<select class="custom-select">
+				<option selected>Выберите язык</option>
+				<option value="bgv">Багвалинский</option>
+				<option value="abz">Абазинский</option>
+			</select>
+		</div>
+
+		<div class="form-row mb-3">
+
+			<div class="col mb-3">
+				<label for="Input">Текст можно ввести в поле ниже или загрузить в виде файла:</label>
+				<textarea class="form-control" id="Input" rows="4"></textarea>
+			</div>
+
+			<div class="col mb-3">
+			<p></p>
+			<!--
+				<label for="Output">Результат:</label>
+				<textarea class="form-control" id="Input" rows="4" readonly></textarea>
+			-->
+			</div>
+
+		</div>
+
+		<div class="form-row mb-3">
+
+			<div class="col mb-3">
+				<input type="file" class="form-control-file" id="FileUploadForm">
+				<small id="FileUploadHelp" class="form-text text-muted">Допустимые расширения — .txt,</small>
+			</div>
+
+			<div class="col mb-3">
+				<label for="UploadFormat">Скачать результат как:</label>
+				<select class="form-control form-control-sm" id="UploadFormat">
+						<option>.txt</option>
+						<option>.json</option>
+						<option>.xml</option>
+				</select>
+			</div>
+
+		</div>
+
+		<div class="form-row mb-3">
+
+			<div class="col mb-3">
+				<button type="submit" class="btn btn-primary">Получить анализ</button>
+			</div>
+
+			<div class="col mb-3">
+				<button type="submit" class="btn btn-primary">Скачать</button>
+			</div>
+
+		</div>
+		
+	</form>
+</div>
+
 {% endblock %}
