@@ -1,6 +1,9 @@
 import os
 import subprocess
 from shlex import quote
+import json
+# сериализовать выход парсера
+import re
 
 from flask import (
     Flask,
@@ -16,6 +19,7 @@ from flask import (
     abort
 )
 from werkzeug.utils import secure_filename
+from dicttoxml import dicttoxml
 
 app = Flask(__name__)
 
@@ -40,6 +44,47 @@ def asr():
     return render_template("asr.html", title="FieldNLP ASR")
 
 
+def parse_hfst(hfst_out: str) -> list:
+    """turn hfst output into serializeable format"""
+    words = re.findall(r"(?<=\^).+?(?=\$)", hfst_out)
+    out_dicts = []
+    for word in words:
+        parts = word.split("/")
+        word_dict = {"token": parts[0], "analyses": []}
+        # if word is unrecognized, use placeholder
+        if parts[1].startswith("*"):
+            word_dict["analyses"].append(
+                {
+                    "lemma": "UNK",
+                    "gloss": "UNK"
+                }
+            )
+            out_dicts.append(word_dict)
+            continue
+        for part in parts[1:]:
+            if part.startswith("<"):
+                word_dict["analyses"].append(
+                    {
+                        "lemma": "" if not (x := re.search("(?<=\>)\w+(?=\<)", part)) else x.group(),
+                        "gloss": ".".join(
+                            re.findall(r"[^<>]+", part)
+                        )
+                    }
+                )
+            else:
+                breakpnt = part.find("<")
+                word_dict["analyses"].append(
+                    {
+                        "lemma": part[:breakpnt],
+                        # change gloss format
+                        "gloss": ".".join(
+                            re.findall(r"[^<>]+", part[breakpnt:])
+                        )
+                    }
+                )
+        out_dicts.append(word_dict)
+    return out_dicts
+
 @app.route("/parsers", methods=["GET", "POST"])
 def parsers():
     TRANSDUCER_MAPPING = {
@@ -59,7 +104,7 @@ def parsers():
     params = {
         "title": "FieldNLP Parsers",
         "request_text": "",
-        "response_text": "",
+        "response_text": [],
         "mapping":TRANSDUCER_MAPPING,
         "curlang": "none"
     }
@@ -103,16 +148,19 @@ def parsers():
         return "Invalid query: bad text", 400
     # decode output from bytes
     response_text = response_text.decode("utf-8")
+    response_list = parse_hfst(response_text)
     if output_type == "json":
-        json_text = response_text # to_json(response_text)
+        json_text = json.dumps(response_list)
         return Response(json_text, mimetype="application/json")
     elif output_type == "xml":
-        xml_text = response_text # to_xml(response_text)
+        xml_text = str(dicttoxml(
+            response_list, custom_root="analyses", attr_type=False
+        ))
         return Response(xml_text, mimetype="application/xml")
     # if no files have been requested, return a template
     params.update({
         "input_text": request_text,
-        "response_text": response_text,# to_html(response_text)
+        "response_text": response_list,
         "curlang": target_transducer
     })
     return render_template(

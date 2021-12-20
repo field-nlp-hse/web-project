@@ -1,6 +1,7 @@
 backports.entry-points-selectable==1.1.1
 cfgv==3.3.1
 click==8.0.3
+dicttoxml>=1.7.4
 distlib==0.3.4
 filelock==3.4.0
 Flask==2.0.2
