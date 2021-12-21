@@ -32,7 +32,7 @@
 <!-- Пример заголовка страницы (надо будет подумать, куда его передвинуть) -->
 <h1 class="mb-6 text-center text-wrap" style="font-size: 1.5rem;">Морфологический&nbsp;анализ малоресурсных&nbsp;языков</h1>
 <div>
-	<form method="POST" action="/parsers" id="parserForm" enctype="multipart/form-data">
+	<form method="POST" action="{{ url_for('parsers') }}" id="parserForm" enctype="multipart/form-data">
 		<!-- невидимый инпут для выбора формы ответа -->
 		<input name="output_type" value="plaintext" hidden aria-hidden="true" id="output"/>
 		<div class="form-group mb-3">
@@ -55,7 +55,7 @@
 				<div>
 					<textarea class="form-control mb-3" id="Input" name="text" rows="4" placeholder="Введите текст">{{ request_text }}</textarea>
 					<label for="Input" style="font-size: 0.7rem;">Текст можно ввести в поле выше или загрузить в виде файла:</label>
-					<input type="file" class="form-control-file" id="FileUploadForm"/>
+					<input type="file" name="file" class="form-control-file" id="FileUploadForm" accept=".txt"/>
 					<small id="FileUploadHelp" class="form-text text-muted">Допустимые расширения — .txt,</small>
 				</div>				
 			</div>
@@ -70,10 +70,9 @@
 								data-html="true"
 								title="{% for analysis in item.analyses %}
 								<ul>
-									<li>{{ loop.index }} lemma: {{ analysis.lemma }}</li>
+									<li><b>{{ loop.index }}.</b> lemma: {{ analysis.lemma }}</li>
 									<li>gloss: {{ analysis.gloss }}</li>
 								</ul>
-								<hr/>
 								{% endfor %}"
 							>{{ item.token }} </span>
 						{% endfor %}
@@ -93,7 +92,7 @@
 <div class="card mb-3">
 	<div class="card-header">Как это работает?</div>
  	<div class="card-body">
- 		<div class="card-title">А никак, на..й</div>
+ 		<div class="card-title">Морфологический анализ...</div>
     	<div class="card-text">))0)</div>
  	</div>
 </div>
