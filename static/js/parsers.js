@@ -7,7 +7,8 @@ const textInput = $("#Input")
 
 function submitToParser(event) {
     event.preventDefault();
-    let fileAttached = Boolean(fileInput.prop('files').length === 1);
+    let files = fileInput.prop('files');
+    let fileAttached = Boolean(files.length === 1);
     let inputPresent = Boolean(textInput.val().length > 0)
     if ($("#transducer").val() === null) {
         alert("Пожалуйста, выберите язык из списка")
@@ -22,7 +23,7 @@ function submitToParser(event) {
     }
     let targetId = event.target.id;
     outputType.val(targetId);
-    $( '#parserForm' ).submit();
+    document.querySelector("#parserForm").submit()
 }
 
 
