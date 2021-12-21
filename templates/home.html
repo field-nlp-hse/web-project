@@ -46,4 +46,43 @@
 		</div>
 	</div>
 </div>
+<div class="card mb-3">
+	<div class="card-header">Оставить заявку</div>
+	<div class="card-body">
+		<div class="card-title">
+			<p class="font-weight-bold"><q>Хочу присоединиться к проекту Field NLP!</q></p>
+			<p>Если у вас есть свой собственный проект, связанный с применением NLP для малоресурсных языков, и вы хотите, чтобы о нем узнало больше людей, оставьте заявку, и мы обязательно свяжемся с вами</p>
+		</div>
+		<hr/>
+    	<div class="card-text">
+    		<script type="text/javascript">var submitted=false;</script>
+			<iframe name="hidden" id="hidden" onload="if(submitted)  {window.location='{{ url_for('submitted') }}';}" style="display:none;"></iframe>
+    		<form class="was-validated" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSdTmFLYP0vm8Gk0llIYSWbMTQ9jRljM0we0Fw-00un0wsLH6w/formResponse" target="hidden" onsubmit="submitted=true;">  
+				<div class="form-group">
+    				<label for="pr_name">Название проекта</label>
+			    	<input class="form-control is-invalid" name="entry.2133670663" type="text" id="pr_name" placeholder="Введите название проекта" required/>
+				</div>
+				<div class="form-group">
+    				<label for="pr_description">Краткое описание проекта (задачи проекта, с каким малоресурсным языком работаете, область применения вашей работы, какие технологии используете, результаты вашего исследования)</label>
+			    	<textarea class="form-control is-invalid" name="entry.85803220" id="pr_description" rows="3" placeholder="Введите описание проекта"required></textarea>
+				</div>
+				<div class="form-group">
+    				<label for="pr_plan">Какую информацию о проекте хотите разместить на нашем веб-ресурсе (описание, демо, интерфейс для взаимодействия с моделью)</label>
+			    	<textarea class="form-control is-invalid" name="entry.1868112961" id="pr_plan" rows="2" placeholder="Введите пожелания к оформлению вашего проекта на нашем веб-ресурсе" required></textarea>
+				</div>
+				<div class="form-group">
+    				<label for="pr_fio">Фамилия Имя Отчество</label>
+			    	<input class="form-control is-invalid" name="entry.522415027" type="text" id="pr_fio" aria-describedby="fioHelp" placeholder="Введите ФИО" required/>
+			    	<small id="fioHelp" class="form-text text-muted">Мы обещаем не передавать никому ваши персональные данные.</small>
+				</div>
+				<div class="form-group">
+					<label for="pr_email">Почта для связи</label>
+    				<input type="email" class="form-control is-invalid" name="entry.1077317986" id="pr_email" aria-describedby="emailHelp" placeholder="Введите email" required>
+    				<small id="emailHelp" class="form-text text-muted">Мы обещаем не передавать никому ваши персональные данные.</small>
+  				</div>
+  				<button type="submit" class="btn btn-primary" value="Submit">Отправить</button>  		
+			</form>
+    	</div>
+ 	</div>
+</div>
 {% endblock %}

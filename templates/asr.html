@@ -39,4 +39,45 @@
     	<div class="card-text">Внутри текст</div>
  	</div>
 </div>
+<div class="card mb-3">
+	<div class="card-header">Обратная связь</div>
+	<div class="card-body">
+		<div class="card-title">
+			<p class="font-weight-bold"><q>Хочу оставить обратную связь по ASR-проекту!</q></p>
+			<p>Здесь вы можете оставить обратную связь к нашему демо ASR для чукотского языка</p>
+		</div>
+		<hr/>
+    	<div class="card-text">
+    		<script type="text/javascript">var submitted=false;</script>
+			<iframe name="hidden" id="hidden" onload="if(submitted)  {window.location='{{ url_for('submitted') }}';}" style="display:none;"></iframe>
+    		<form class="was-validated" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLScQZrw_zEG9qMcIfb8wfDDDdKw6KwhivyK4aQPwPPf_9Q8LGQ/formResponse" target="hidden" onsubmit="submitted=true;">  	
+    			<div class="form-group">
+					<label for="selector_1">Насколько вас впечатлило качество нашей ASR-модели для чукотского на демонстрационных примерах? (от 1 до 5, где 1 - вообще не впечатлило, 5 - очень хорошие результаты)</label>
+					<select class="form-control is-invalid" name="entry.1876630129" id="selector_1" required>
+				    	<option selected disabled value=''>Выберите оценку</option>
+				    	<option value="1">1</option>
+				    	<option value="2">2</option>
+				    	<option value="3">3</option>
+				    	<option value="4">4</option>
+				    	<option value="5">5</option>
+				    </select>
+				</div>
+				<div class="form-group">
+					<label for="selector_2">Есть ли у вас необходимость в использовании нашей модели ASR для чукотского?</label>
+					<select class="form-control is-invalid" name="entry.1635563748" id="selector_2" required>
+				    	<option selected disabled value=''>Выберите вариант</option>
+				    	<option value="Да, было бы замечательно использовать веб-версию">Да, было бы замечательно использовать веб-версию</option>
+				    	<option value="Да, было бы замечательно использовать desktop-версию">Да, было бы замечательно использовать desktop-версию</option>
+				    	<option value="Нет">Нет</option>
+				    </select>
+				</div>
+				<div class="form-group">
+    				<label for="notes_1">Другое (любые пожелания, идеи, замечания)</label>
+			    	<textarea class="form-control" name="entry.802997678" id="notes_1" rows="2" placeholder="Введите текст"></textarea>
+				</div>
+  				<button type="submit" class="btn btn-primary" value="Submit">Отправить</button>  		
+			</form>
+    	</div>
+ 	</div>
+</div>
 {% endblock %}
