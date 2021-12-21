@@ -122,6 +122,10 @@ def parsers():
 def dictionaries():
     return render_template("dictionaries.html", title="FieldNLP Dictionaries")
 
+@app.route("/submitted")
+def submitted():
+    return render_template("submitted.html", title="FieldNLP Feedback")
+
 
 @app.errorhandler(400)
 def handle_400(error):

@@ -39,4 +39,55 @@
     	<div class="card-text">Внутри текст</div>
  	</div>
 </div>
+<div class="card mb-3">
+	<div class="card-header">Обратная связь</div>
+	<div class="card-body">
+		<div class="card-title">
+			<p class="font-weight-bold"><q>Хочу оставить обратную связь по словарям!</q></p>
+			<p>Здесь вы можете оставить обратную связь по работе с нашими словарями малоресурсных языков</p>
+		</div>
+		<hr/>
+    	<div class="card-text">
+    		<script type="text/javascript">var submitted=false;</script>
+			<iframe name="hidden" id="hidden" onload="if(submitted)  {window.location='{{ url_for('submitted') }}';}" style="display:none;"></iframe>
+    		<form class="was-validated" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLScUOTxvOqIzk4hYks8pjyCeITWUwA-uMkrUeG8E6xyNi0-UPw/formResponse" target="hidden" onsubmit="submitted=true;">  	
+    			<div class="form-group">
+					<label for="selector_1">Насколько вы довольны качеством наших словарей? (от 1 до 5, где 1 - крайне недоволен, 5 - очень доволен)</label>
+					<select class="form-control is-invalid" name="entry.2089375215" id="selector_1" required>
+				    	<option selected disabled value=''>Выберите оценку</option>
+				    	<option value="1">1</option>
+				    	<option value="2">2</option>
+				    	<option value="3">3</option>
+				    	<option value="4">4</option>
+				    	<option value="5">5</option>
+				    </select>
+				</div>
+				<div class="form-group">
+    				<label for="notes_1">Любые замечания к качеству наших словарей (можете привести примеры, которые считаете неправильными)</label>
+			    	<textarea class="form-control" name="entry.621048243" id="notes_1" rows="2" placeholder="Введите текст"></textarea>
+				</div>
+				<div class="form-group">
+					<label for="selector_2">Насколько вы довольны интерфейсом наших словарей? (от 1 до 5, где 1 - крайне недоволен, 5 - очень доволен)</label>
+					<select class="form-control is-invalid" name="entry.1365171039" id="selector_2" required>
+				    	<option selected disabled value=''>Выберите оценку</option>
+				    	<option value="1">1</option>
+				    	<option value="2">2</option>
+				    	<option value="3">3</option>
+				    	<option value="4">4</option>
+				    	<option value="5">5</option>
+				    </select>
+				</div>
+				<div class="form-group">
+    				<label for="notes_2">Замечания/предложения, связанные с интерфейсом словарей</label>
+			    	<textarea class="form-control" name="entry.1344805214" id="notes_2" rows="2" placeholder="Введите текст"></textarea>
+				</div>
+				<div class="form-group">
+    				<label for="notes_3">Другое</label>
+			    	<textarea class="form-control" name="entry.1687165308" id="notes_3" rows="2" placeholder="Введите текст"></textarea>
+				</div>
+  				<button type="submit" class="btn btn-primary" value="Submit">Отправить</button>  		
+			</form>
+    	</div>
+ 	</div>
+</div>
 {% endblock %}
