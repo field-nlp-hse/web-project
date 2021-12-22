@@ -41,16 +41,16 @@
 	так они будут ровно вставать внутри основной колонки.
 -->
 <!-- Пример заголовка страницы (надо будет подумать, куда его передвинуть) -->
-<h1 class="mb-3 text-center">Автоматическое распознавание речи для чукотского языка</h1>
+<h1 class="mb-6 text-center text-wrap" style="font-size: 1.5rem;">Автоматическое&nbsp;распознавание&nbsp;речи для&nbsp;чукотского&nbsp;языка</h1>
 <!-- Пример блока card (в него можно вписывать текст) -->
 <div class="card mb-3">
-	<div class="card-header"><h3>Про распознавание речи</h3></div>
+	<div class="card-header">Про распознавание речи</div>
  	<div class="card-body">
-    	<div class="card-text"><p>Распознавание речи сейчас активно развивается в сфере бизнеса: количество обучаемых данных стремительно увеличивается, модели становятся всё тяжелее. Эти наработки иногда невозможно использовать в науке, например как в задаче распознавания речи малоресурсного языка, в котором просто нет большого объёма данных. Надеемся, что наши наработки помогут лингвистам, как компьютерным, так и полевым.</p></div>
+    	<div class="card-text">Распознавание речи сейчас активно развивается в сфере бизнеса: количество обучаемых данных стремительно увеличивается, модели становятся всё тяжелее. Эти наработки иногда невозможно использовать в науке, например как в задаче распознавания речи малоресурсного языка, в котором просто нет большого объёма данных. Надеемся, что наши наработки помогут лингвистам, как компьютерным, так и полевым.</div>
  	</div>
 </div>
 <div class="card mb-3">
-	<div class="card-header"><h3>Про данные</h3></div>
+	<div class="card-header">Про данные</div>
  	<div class="card-body">
  		<div class="card-title"><strong>Звуковые данные</strong></div>
     	<div class="card-text">
@@ -76,6 +76,7 @@
 				Общая длительность всех аудио-данных: 21:34:23
 			</p>
 		</div>
+		<hr/>
 		<div class="card-title"><strong>Текстовые данные</strong></div>
     	<div class="card-text">
 			<p>А ещё, мы собрали довольно много текстовых данных.
@@ -110,7 +111,7 @@
  	</div>
 </div>
 <div class="card mb-3">
-	<div class="card-header"><h3>Про нашу модель</h3></div>
+	<div class="card-header">Про нашу модель</div>
  	<div class="card-body">
  		<div class="card-title"><strong>XLSR</strong></div>
     	<div class="card-text">
@@ -119,41 +120,46 @@
 				<p align="center"> <img src="https://docs.google.com/uc?export=download&id=1FhoAHGOFWUvsOmC4_XFkRUYaVaCWiaSA" alt="Архитектура модели XLSR"></p>
 			</figure>
 			<p>FAIR выложила в открытый доступ код XLS-R — самообучающейся модели, выполняющей распознавание речи. XLS-R поддерживает 128 языков и превосходит в бенчмарках все предыдущие мультиязыковые модели.<br>
-				Цель, которую преследовали  разработчики XLS-R — создать единую модель для распознавания речи, ее перевода и идентификации языка сразу на большинстве самых популярных языков.<br>
-				Модель обучена более чем на 436 000 часах общедоступных записей речи, что почти в 10 раз больше, чем у предыдущей модели FAIR XLSR-53. Обучающие данные брались из разных источников, таких как записи судебных заседаний и аудиокниги, и включают 128 языков, что в два с половиной раза больше, чем XLSR-53.<br>
-				XLS-R содержит более 2-х миллиардов параметров. Разработчики FAIR утверждают, что увеличение параметров привело к значительному улучшению модели, поскольку большее количество параметров позволяет сформировать лучшее представление языка на основе обучающих данных. Также они обнаружили, что обучение модели сразу всем языкам повышает ее эффективность сильнее, чем при обучении одному языку.</p>
-				<p>Модель доступна в <a href="tip.https://github.com/pytorch/fairseq/tree/main/examples/wav2vec/xlsr">Github</a>.</p>
+			Цель, которую преследовали  разработчики XLS-R — создать единую модель для распознавания речи, ее перевода и идентификации языка сразу на большинстве самых популярных языков.<br>
+			Модель обучена более чем на 436 000 часах общедоступных записей речи, что почти в 10 раз больше, чем у предыдущей модели FAIR XLSR-53. Обучающие данные брались из разных источников, таких как записи судебных заседаний и аудиокниги, и включают 128 языков, что в два с половиной раза больше, чем XLSR-53.<br>
+			XLS-R содержит более 2-х миллиардов параметров. Разработчики FAIR утверждают, что увеличение параметров привело к значительному улучшению модели, поскольку большее количество параметров позволяет сформировать лучшее представление языка на основе обучающих данных. Также они обнаружили, что обучение модели сразу всем языкам повышает ее эффективность сильнее, чем при обучении одному языку.</p>
+			<p>Модель доступна в <a href="tip.https://github.com/pytorch/fairseq/tree/main/examples/wav2vec/xlsr">Github</a>.</p>
 		</div>
-		<div class="card-title"><strong>Результаты</strong></div>
-		<div class="card-text"></div>
-		<p> Нашу обученную модель и туториал по её запуску вы можете найти <a href="tip.https://github.com/ftyers/fieldasr/tree/main/notebook">на нашем Github</a>.</p>
-		<p>Количество аудио-данных, использованных для обучения и тестирования:
-			<table width="20%" cellspacing="4" cellpadding="4" border="0">
-				<tbody>
-					<tr><td>Обучение</td><td>02:49:36.35</td></tr> <!--ряд с ячейками тела таблицы-->
-					<tr><td>Тестирование</td><td>00:17:09.25</td></tr> <!--ряд с ячейками тела таблицы-->
-					<tr><td><strong>Всего</strong></td><td><strong>03:06:45.00</strong></td></tr> <!--ряд с ячейками тела таблицы-->
-				</tbody>
-			</table>
-		</p>
+	</div>
+</div>
+<div class="card mb-3">
+	<div class="card-header">Результаты</div>
+ 	<div class="card-body">
+		<div class="card-text">
+			<p> Нашу обученную модель и туториал по её запуску вы можете найти <a href="tip.https://github.com/ftyers/fieldasr/tree/main/notebook">на нашем Github</a>.</p>
+			<p>Количество аудио-данных, использованных для обучения и тестирования:
+				<table align="center" class="tb" width="20%" cellspacing="4" cellpadding="4" border="0">
+					<tbody>
+						<tr><td>Обучение</td><td>02:49:36.35</td></tr> <!--ряд с ячейками тела таблицы-->
+						<tr><td>Тестирование</td><td>00:17:09.25</td></tr> <!--ряд с ячейками тела таблицы-->
+						<tr><td><strong>Всего</strong></td><td><strong>03:06:45.00</strong></td></tr> <!--ряд с ячейками тела таблицы-->
+					</tbody>
+				</table>
+			</p>
 			<p>Вышло не так ужасно! Можете убедиться в этом сами:
-			<table align="center" class="tb">
-				<caption>Таблица 3. Результаты работы модели</caption>
-				<tbody>
-					<tr>
-						<th>Язык</th>
-						<th>WER</th>
-						<th>CER</th>
-						<th>Кол-во аудио данных в часах</th>
-					</tr>
-					<tr><td>Ассамский</td><td>44.1</td><td>17.9</td><td>55</td></tr>
-					<tr><td>Тагальский</td><td>33.2</td><td>13.1</td><td>76</td></tr>
-					<tr><td>Суахили</td><td>26.5</td><td>21.3</td><td>30</td></tr>
-					<tr><td>Грузинский</td><td>31.1</td><td>22.4</td><td>59</td></tr>
-					<tr><td><strong>Наш: чукотский</strong></td><td><strong>75.8</strong></td><td><strong>18.7</strong></td><td><strong>3</strong></td></tr>
-				</tbody>
-			</table>
-		</p></div>
+				<table align="center" class="tb">
+					<caption>Таблица 3. Результаты работы модели</caption>
+					<tbody>
+						<tr>
+							<th>Язык</th>
+							<th>WER</th>
+							<th>CER</th>
+							<th>Кол-во аудио данных в часах</th>
+						</tr>
+						<tr><td>Ассамский</td><td>44.1</td><td>17.9</td><td>55</td></tr>
+						<tr><td>Тагальский</td><td>33.2</td><td>13.1</td><td>76</td></tr>
+						<tr><td>Суахили</td><td>26.5</td><td>21.3</td><td>30</td></tr>
+						<tr><td>Грузинский</td><td>31.1</td><td>22.4</td><td>59</td></tr>
+						<tr><td><strong>Наш: чукотский</strong></td><td><strong>75.8</strong></td><td><strong>18.7</strong></td><td><strong>3</strong></td></tr>
+					</tbody>
+				</table>
+			</p>
+		</div>
  	</div>
 </div>
 <div class="card mb-3">
@@ -192,7 +198,6 @@
 		</p>
 	 </div>
 </div>
-<hr/>
 <div class="card mb-3">
 	<div class="card-header">Обратная связь</div>
 	<div class="card-body">
@@ -230,47 +235,6 @@
 			    	<textarea class="form-control" name="entry.802997678" id="notes_1" rows="2" placeholder="Введите текст"></textarea>
 				</div>
   				<button type="submit" class="btn btn-primary" value="Submit">Отправить</button>
-			</form>
-    	</div>
- 	</div>
-</div>
-<div class="card mb-3">
-	<div class="card-header">Обратная связь</div>
-	<div class="card-body">
-		<div class="card-title">
-			<p class="font-weight-bold"><q>Хочу оставить обратную связь по ASR-проекту!</q></p>
-			<p>Здесь вы можете оставить обратную связь к нашему демо ASR для чукотского языка</p>
-		</div>
-		<hr/>
-    	<div class="card-text">
-    		<script type="text/javascript">var submitted=false;</script>
-			<iframe name="hidden" id="hidden" onload="if(submitted)  {window.location='{{ url_for('submitted') }}';}" style="display:none;"></iframe>
-    		<form class="was-validated" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLScQZrw_zEG9qMcIfb8wfDDDdKw6KwhivyK4aQPwPPf_9Q8LGQ/formResponse" target="hidden" onsubmit="submitted=true;">  	
-    			<div class="form-group">
-					<label for="selector_1">Насколько вас впечатлило качество нашей ASR-модели для чукотского на демонстрационных примерах? (от 1 до 5, где 1 - вообще не впечатлило, 5 - очень хорошие результаты)</label>
-					<select class="form-control is-invalid" name="entry.1876630129" id="selector_1" required>
-				    	<option selected disabled value=''>Выберите оценку</option>
-				    	<option value="1">1</option>
-				    	<option value="2">2</option>
-				    	<option value="3">3</option>
-				    	<option value="4">4</option>
-				    	<option value="5">5</option>
-				    </select>
-				</div>
-				<div class="form-group">
-					<label for="selector_2">Есть ли у вас необходимость в использовании нашей модели ASR для чукотского?</label>
-					<select class="form-control is-invalid" name="entry.1635563748" id="selector_2" required>
-				    	<option selected disabled value=''>Выберите вариант</option>
-				    	<option value="Да, было бы замечательно использовать веб-версию">Да, было бы замечательно использовать веб-версию</option>
-				    	<option value="Да, было бы замечательно использовать desktop-версию">Да, было бы замечательно использовать desktop-версию</option>
-				    	<option value="Нет">Нет</option>
-				    </select>
-				</div>
-				<div class="form-group">
-    				<label for="notes_1">Другое (любые пожелания, идеи, замечания)</label>
-			    	<textarea class="form-control" name="entry.802997678" id="notes_1" rows="2" placeholder="Введите текст"></textarea>
-				</div>
-  				<button type="submit" class="btn btn-primary" value="Submit">Отправить</button>  		
 			</form>
     	</div>
  	</div>
