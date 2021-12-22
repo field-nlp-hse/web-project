@@ -1,35 +1,37 @@
 import os
-import subprocess
 from shlex import quote
 import json
 from datetime import datetime
-# сериализовать выход парсера
 
 from flask import (
     Flask,
     render_template,
     request,
-    # эскейпим пользовательский ввод перед рендером через jinja
-    # (чтобы ублажить сергея)
     escape,
-    # Response для отправки файлов
+    jsonify,
     Response,
-    # если пользователь не ввел нужный параметр,
-    # делаем аборт
     abort
 )
+from flask_restful import Api, Resource, marshal
 from werkzeug.utils import secure_filename
 from dicttoxml import dicttoxml
+
 from utils import (
-    parse_hfst, 
-    TRANSDUCER_MAPPING, 
     is_allowed_extension,
-    logger
+    logger,
+)
+from parser import (
+    token_fields,
+    transducer_lookup,
+    parse_hfst, 
+    TRANSDUCER_MAPPING    
 )
 
 app = Flask(__name__)
+api = Api(app)
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+
 
 @app.route("/")
 def home():
@@ -41,6 +43,30 @@ def asr():
     return render_template("asr.html", title="FieldNLP ASR")
 
 
+class ParserList(Resource):
+    def get(self):
+        return {"parsers": list(TRANSDUCER_MAPPING.keys())}
+
+
+class ParsedWord(Resource):
+    def get(self, parser: str, word: str):
+        if parser not in TRANSDUCER_MAPPING or " " in word:
+            return {"message": "Invalid query"}, 400
+        returncode, response_text = transducer_lookup(
+            parser, word
+        )
+        if returncode != 0 or not response_text:
+            return {"message": "Invalid query"}, 400
+        response_text = response_text.decode("utf-8")
+        if "*" in response_text:
+            return {"message": "Word out of dictionary"}, 404
+        return marshal(parse_hfst(response_text), token_fields)
+
+
+api.add_resource(ParserList, "/parseapi/parserlist")
+api.add_resource(ParsedWord, "/parseapi/<string:parser>/<string:word>")
+
+
 @app.route("/parsers", methods=["GET", "POST"])
 def parsers():
     params = {
@@ -50,42 +76,31 @@ def parsers():
         "mapping": TRANSDUCER_MAPPING,
         "curlang": "none"
     }
-    if request.method == "GET":
+    # logger.debug(str(len(request.args)))
+    is_post = request.method == "POST"
+    if not is_post and len(request.args) == 0:
         return render_template(
             "parsers.html",
             **params
         )
-    request_text = request.form.get("text", "")
-    logger.debug("before file lookup")
+    request_text = request.values.get("text")
     if request.files:
-        logger.debug("files found")
         file_ = request.files['file']
-        if not is_allowed_extension(file_.filename):
-            abort(400)
-        request_text = file_.read().decode("utf-8")
-        logger.debug(f"Obtained text: {str(request_text)}")
-    output_type = request.form.get("output_type", "plaintext")
-    
-    target_transducer = request.form.get("transducer")
+        if is_allowed_extension(file_.filename):
+            request_text = file_.read().decode("utf-8")
+    output_type = request.values.get("output-type", "plaintext")
+    target_transducer = request.values.get("transducer")
     if not request_text or not target_transducer:
         abort(400)
     # quote to prevent shell insertions
     request_text = quote(request_text)
     # pick a transducer name from list
-    target_transducer_file = TRANSDUCER_MAPPING[target_transducer]["filename"]
-    echo_process = subprocess.Popen(
-        ["echo", request_text],
-        stdout=subprocess.PIPE
+    returncode, response_text = transducer_lookup(
+        target_transducer, request_text
     )
-    ana_process = subprocess.run(
-        ["hfst-proc", target_transducer_file],
-        stdin=echo_process.stdout,
-        capture_output=True
-    )
-    returncode = ana_process.returncode
-    response_text = ana_process.stdout
     # reject request on error
     if returncode != 0 or not response_text:
+        logger.debug("parsing error")
         abort(400)
     # decode output from bytes
     response_text = response_text.decode("utf-8")
@@ -93,18 +108,20 @@ def parsers():
     if output_type == "json":
         json_text = json.dumps(response_list, ensure_ascii=False)
         response = Response(json_text, mimetype="application/json")
-        response.headers['Content-Disposition'] = (
-            'attachment; filename="{}.json"'.format(datetime.now())
-        )
+        if is_post:
+            response.headers['Content-Disposition'] = (
+                'attachment; filename="{}.json"'.format(datetime.now())
+            )
         return response
     elif output_type == "xml":
         xml_text = str(dicttoxml(
             response_list, custom_root="analyses", attr_type=False
         ).decode('utf-8'))
         response = Response(xml_text, mimetype="application/xml")
-        response.headers['Content-Disposition'] = (
-            'attachment; filename="{}.xml"'.format(datetime.now())
-        )
+        if is_post:
+            response.headers['Content-Disposition'] = (
+                'attachment; filename="{}.xml"'.format(datetime.now())
+            )
         return response
     # if no files have been requested, return a template
     params.update({
@@ -112,9 +129,11 @@ def parsers():
         "response_text": response_list,
         "curlang": target_transducer
     })
+    if not is_post:
+        return Response(response_text, mimetype="text/plain")
     return render_template(
         "parsers.html",
-        **params            
+        **params
     )
 
 
