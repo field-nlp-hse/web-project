@@ -6,3 +6,44 @@
 Далее <b>обязательно</b> нужно сделать <code>pre-commit install</code> после клонирования репозитория. Автоматизировать это нельзя из соображений безопасности.
 Затем перед каждым коммитом линтер будет править ваш код.<br>
 Если вы хотите сделать это сами, то используйте команду <code>pre-commit run --all-files</code>, чтобы применить линтер ко всем файлам проекта или <code>pre-commit run --files [FILES]</code>, чтобы применить его к конкретным файлам.<br>
+
+### Parser API
+Морфологические парсеры, представленные на сайте, доступны через API.
+Вы можете получить список наличных парсеров через метод parserlist
+```console
+foo@bar~$ curl -H GET localhost:5000/parseapi/parserlist
+{
+    "parsers": [
+        "abz",
+        "bgv-cyr",
+        "bgv-lat"
+    ]
+}
+```
+Выбрав один из парсеров, вы можете разобрать с его помощью конкретное слово
+```console
+foo@bar~$ curl -H GET localhost:5000/parseapi/bgv-lat/han
+[
+    {
+        "token": "han",
+        "analyses": [
+            {
+                "lemma": "гьан",
+                "gloss": "n.abs"
+            },
+            {
+                "lemma": "гьан",
+                "gloss": "vblex.aor.ger.abs"
+            },
+            {
+                "lemma": "гьан",
+                "gloss": "vblex.aor.pp.nn.nt.pl"
+            },
+            {
+                "lemma": "гьан",
+                "gloss": "vblex.aor.pp.nn.nt.pl.abs"
+            }
+        ]
+    }
+]
+```
