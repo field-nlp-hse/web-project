@@ -2,6 +2,7 @@ import os
 from shlex import quote
 import json
 from datetime import datetime
+from gevent.pywsgi import WSGIServer
 
 from flask import (
     Flask,
@@ -168,4 +169,5 @@ def handle_500(error):
 
 if __name__ == "__main__":
     app.config["SECRET_KEY"] = "xfnjMCLYhzFUi$4IoQDRe~sSEoe|OprmKGPW68lOgph#Cgty"
-    app.run(host="0.0.0.0", debug=True)
+    http_server = WSGIServer(('0.0.0.0', 5000), app)
+    http_server.serve_forever()
