@@ -1,19 +1,34 @@
-import csv
-import json
 import os
-from datetime import datetime
-from .parser import (TRANSDUCER_MAPPING, parse_hfst, token_fields,
-                    transducer_lookup)
+import csv
 from shlex import quote
-
-from dicttoxml import dicttoxml
-from flask import (Flask, Response, abort, escape, jsonify, render_template,
-                   request)
-from flask_restful import Api, Resource, marshal
+import json
+from datetime import datetime
 from gevent.pywsgi import WSGIServer
-from werkzeug.utils import secure_filename
 
-from utils import is_allowed_extension, logger
+from flask import (
+    Flask,
+    render_template,
+    request,
+    escape,
+    jsonify,
+    Response,
+    abort
+)
+from flask_restful import Api, Resource, marshal
+from werkzeug.utils import secure_filename
+from dicttoxml import dicttoxml
+
+from utils import (
+    is_allowed_extension,
+    logger,
+)
+from parser import (
+    token_fields,
+    transducer_lookup,
+    parse_hfst,
+    TRANSDUCER_MAPPING
+)
+
 
 app = Flask(__name__)
 api = Api(app)
