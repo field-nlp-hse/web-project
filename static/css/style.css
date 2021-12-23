@@ -8,14 +8,3 @@
 #myTable tr.header, #myTable tr:hover {
   background-color: #f1f1f1;
 }
-
-.my-custom-scrollbar {
-  position: relative;
-  height: 300px;
-  overflow: auto;
-  margin-bottom: 20px;
-}
-
-.table-wrapper-scroll-y {
-  display: block;
-}
