@@ -22,7 +22,7 @@ from utils import (
     is_allowed_extension,
     logger,
 )
-from parser import (
+from fstparser import (
     token_fields,
     transducer_lookup,
     parse_hfst,

@@ -50,7 +50,7 @@
 			</select>
 		</div>
 
-		<div class="form-row d-flex flex-column flex-md-row justify-content-between mb-3">
+		<div class="form-row d-flex flex-column flex-lg-row justify-content-between mb-3">
 			<div class="col mb-3">
 				<div>
 					<textarea class="form-control mb-3" id="Input" name="text" rows="4" placeholder="Введите текст">{{ request_text }}</textarea>
@@ -89,13 +89,48 @@
 </div>
 
 <!-- Пример блока card (в него можно вписывать текст) -->
+
+<div class="card mb-3">
+	<div class="card-header">Про что этот проект?</div>
+ 	<div class="card-body">
+    	<div class="card-text">
+			<section>
+			Разработка инструментов для морфологического анализа малоресурсных языков 
+			ведется в НИУ ВШЭ под руководством Г.А. Мороза и Н.Л. Хауэлла. Конечная цель 
+			проекта — обеспечить специалистов по сбору полевых данных инструментами для автоматической 
+			обработки текстов, собранных в экспедициях, а кроме того, помочь всем интересующимся грамматикой малых языков. Приоритетным направлением является работа с языками 
+			Северного Кавказа, которые активно изучаются в НИУ ВШЭ и других исследовательских организациях.
+			</section>
+		</div>
+ 	</div>
+</div>
+
 <div class="card mb-3">
 	<div class="card-header">Как это работает?</div>
  	<div class="card-body">
- 		<div class="card-title">Морфологический анализ...</div>
-    	<div class="card-text">))0)</div>
+    	<div class="card-text">
+			<section class="mb-3">
+			В анализаторах применяется технология конечных преобразователей.
+			Благодаря инструментам lexd и twol словарь языка можно представить в виде конечного набора
+			комбинаций морфем. После сборки конечный автомат содержит информацию о каждой словоформе языка
+			в виде поверхностного представления и соответствующей последовательности морфем: таким образом, для любой
+			словоформы можно найти все варианты морфологического разбора.
+			</section>
+			<section class="mb-3">
+			Если вы хотите создать свой морфологический парсер на основе тех же инструментов, мы рекомендуем
+			ознакомиться с официальной документацией, в которой содержатся необходимые примеры.
+			</section>
+			<section>
+			<ul>
+				<li><a href="https://github.com/hfst/hfst/wiki">Фреймворк HFST</a></li>
+				<li><a href="https://github.com/apertium/lexd">Открытый инструмент для генерации конечных автоматов lexd</a></li>
+				<li><a href="https://wiki.apertium.org/wiki/Morphological_dictionary">Проект&nbsp;Apertium, реализующий машинный перевод на основе конечных автоматов.</a></li>
+			</ul>
+			</section>
+		</div>
  	</div>
 </div>
+
 <div class="card mb-3">
 	<div class="card-header">Обратная связь</div>
 	<div class="card-body">
