@@ -10,13 +10,17 @@ RUN apt install -y python3
 RUN apt install -y python3-pip
 RUN apt install -y curl
 RUN apt install -y wget
-CMD ["curl -sS https://apertium.projectjj.com/apt/install-nightly.sh | sudo bash"]
+RUN /bin/bash -c "curl -sS https://apertium.projectjj.com/apt/install-nightly.sh | bash"
 RUN apt install hfst -y
+RUN apt install -y nodejs
+RUN apt install -y npm
 
 WORKDIR /home/app/
 COPY . .
 
 RUN pip3 install -r requirements.txt
+RUN npm install .
+RUN /bin/bash -c "wget -P /home/app/static/css/ https://bootswatch.com/4/lux/bootstrap.css"
 
 RUN chmod +x /home/app/run_system.sh
 CMD ["/home/app/run_system.sh"]

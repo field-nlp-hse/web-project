@@ -1,0 +1,24 @@
+{
+  "name": "field-nlp",
+  "version": "1.0.0",
+  "description": "field nlp site",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/field-nlp-hse/web-project.git"
+  },
+  "author": "field-nlp-hse",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/field-nlp-hse/web-project/issues"
+  },
+  "homepage": "https://github.com/field-nlp-hse/web-project#readme",
+  "dependencies": {
+    "bootstrap": "^4.6.1",
+    "jquery": "^3.6.0",
+    "popper.js": "^1.16.1"
+  }
+}
