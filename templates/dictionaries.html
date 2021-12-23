@@ -58,18 +58,20 @@
 
 <input type="text" id="myInput" onkeyup="searchTable()" placeholder="🔍Поиск.." title="Введите слово">
 
-<table id="myTable">
-  <tr class="header">
-    <th style="width:30%;">andi</th>
-	<th style="width:30%;">chuckchi</th>
-  </tr>
-  {% for row in table %}
-	  <tr>
-		<td><a href="#" data-toggle="popover" title="tags from rdf" data-content="<p>{{ some_info[1] }}</p><p>{{ some_info[2] }}</p>">{{ row['word_andi'] }}</a></td>
-		<td><a href="#" data-toggle="popover" title="tags from rdf" data-content="Some content inside the popover">{{ row['word_chukchi'] }}</a></td>
+<div class="table-wrapper-scroll-y my-custom-scrollbar">
+	<table id="myTable" class="table-sm table-bordered" style="width:100%">
+	  <tr class="header">
+		<th style="width:30%;">andi</th>
+		<th style="width:30%;">chukchi</th>
 	  </tr>
-  {% endfor %}
-</table>
+	  {% for row in table %}
+		  <tr>
+			<td><a href="#" data-toggle="popover" title="tags from rdf" data-content="<p>{{ some_info[1] }}</p><p>{{ some_info[2] }}</p>">{{ row['word_andi'] }}</a></td>
+			<td><a href="#" data-toggle="popover" title="tags from rdf" data-content="Some content inside the popover">{{ row['word_chukchi'] }}</a></td>
+		  </tr>
+	  {% endfor %}
+	</table>
+</div>
 
 <script>
 $(document).ready(function(){
