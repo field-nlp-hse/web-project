@@ -22,4 +22,3 @@ RUN chmod +x /home/app/run_system.sh
 CMD ["/home/app/run_system.sh"]
 
 EXPOSE 80
-
