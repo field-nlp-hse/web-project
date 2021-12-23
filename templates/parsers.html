@@ -50,7 +50,7 @@
 			</select>
 		</div>
 
-		<div class="form-row d-flex flex-column flex-md-row justify-content-between mb-3">
+		<div class="form-row d-flex flex-column flex-lg-row justify-content-between mb-3">
 			<div class="col mb-3">
 				<div>
 					<textarea class="form-control mb-3" id="Input" name="text" rows="4" placeholder="Введите текст">{{ request_text }}</textarea>
@@ -92,8 +92,40 @@
 <div class="card mb-3">
 	<div class="card-header">Как это работает?</div>
  	<div class="card-body">
- 		<div class="card-title">Морфологический анализ...</div>
-    	<div class="card-text">))0)</div>
+    	<div class="card-text">
+			<section class="mb-3">
+			Для морфологического анализа в проекте применяется технология конечных преобразователей.
+			Благодаря инструментам lexd и twol, словарь языка можно представить в виде конечного набора
+			комбинаций морфем. После сборки конечный автомат содержит информацию о каждой словоформе языка
+			в виде поверхностного представления и соответствующего набора морфем. Таким образом, для любого
+			поверхностного представления можно найти все варианты морфологического разбора.
+			</section>
+			<section class="mb-3">
+			Если вы хотите создать свой морфологический парсер на основе тех же инструментов, мы рекомендуем
+			вам ознакомиться с официальной документацией, в которой содержатся необходимые примеры.
+			</section>
+			<section>
+			<ul>
+				<li><a href="https://github.com/hfst/hfst/wiki">Фреймворк HFST</a></li>
+				<li><a href="https://github.com/apertium/lexd">Открытый инструмент для генерации конечных автоматов lexd</a></li>
+				<li><a href="https://wiki.apertium.org/wiki/Morphological_dictionary">Проект&nbsp;Apertium, реализующий машинный перевод на основе конечных автоматов.</a></li>
+			</ul>
+			</section>
+		</div>
+ 	</div>
+</div>
+<div class="card mb-3">
+	<div class="card-header">О проекте</div>
+ 	<div class="card-body">
+    	<div class="card-text">
+			<section>
+			Проект по разработке инструментов для морфологического анализа малоресурсных языков 
+			реализуется в НИУ ВШЭ под руководством Г. А. Мороза и Николаса Хауэлла. Конечная цель 
+			проекта - обеспечить специалистов по сбору полевых данных инструментами для автоматической 
+			обработки текстов, собранных в экспедициях. Приоритетным направлением является работа с языками 
+			Северного Кавказа, находящимися под угрозой исчезновения и требующими активного полевого изучения.
+			</section>
+		</div>
  	</div>
 </div>
 <div class="card mb-3">
